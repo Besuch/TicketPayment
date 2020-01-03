@@ -18,5 +18,4 @@ public class OrderDto {
     private Integer routeNumber;
     @NotNull
     private OrderStatusType status;
-
 }

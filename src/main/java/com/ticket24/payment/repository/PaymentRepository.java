@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<OrderEntity, Long> {
+
     @Query("SELECT o FROM OrderEntity o WHERE o.status = :status")
     List<OrderEntity> findByStatusType(OrderStatusType status);
 }
