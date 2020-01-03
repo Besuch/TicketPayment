@@ -39,8 +39,8 @@ public class PaymentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDto createOrder(@Valid @RequestBody OrderDto orderDto) {
-        return paymentService.save(orderDto);
+    public long createOrder(@Valid @RequestBody OrderDto orderDto) {
+        return paymentService.save(orderDto).getId();
     }
 
     @ResponseBody
