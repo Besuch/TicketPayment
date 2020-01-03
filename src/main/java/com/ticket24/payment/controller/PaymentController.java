@@ -1,54 +1,53 @@
 package com.ticket24.payment.controller;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.ticket24.payment.dto.PaymentDto;
+import com.ticket24.payment.dto.OrderDto;
 import com.ticket24.payment.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("/tickets")
+@RequestMapping("/orders")
+@ControllerAdvice
 @RequiredArgsConstructor
 public class PaymentController {
 
     private final PaymentService paymentService;
 
-    @GetMapping
-    public List<PaymentDto> getTickets() {
+    //TODO getOrders() only for testing purpose. Should be removed.
+    @GetMapping("/all")
+    public List<OrderDto> getAllOrders() {
         return paymentService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto getOrder(@PathVariable long id) {
+        return paymentService.getById(id);
+    }
+
+    @GetMapping("/{id}/status")
+    public String getOrderStatus(@PathVariable long id) {
+        // toString for getting status without ""
+        return paymentService.getOrderStatusById(id).toString();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PaymentDto createTicket(@Valid @RequestBody PaymentDto paymentDto) {
-        return paymentService.save(paymentDto);
+    public OrderDto createOrder(@Valid @RequestBody OrderDto orderDto) {
+        return paymentService.save(orderDto);
     }
 
+    @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(Exception.class)
-    public String handleValidationExceptions(Exception ex) {
-        return ex.getMessage();
+    @ExceptionHandler(InvalidFormatException.class)
+    public String typeMismatchException(
+            HttpServletRequest request, HttpServletResponse servletResponse, InvalidFormatException e) {
+        return "Invalid format";
     }
 }
-

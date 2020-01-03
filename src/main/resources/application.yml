@@ -1,0 +1,3 @@
+orders:
+  scheduler:
+    cron: 0 * * * * *

@@ -1,6 +1,6 @@
 package com.ticket24.payment.entity;
 
-import com.ticket24.payment.enums.RequestStatusType;
+import com.ticket24.payment.enums.OrderStatusType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,21 +9,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentRequestEntity {
+public class OrderEntity {
 
     @Id
     @GeneratedValue
     private Long id;
-    private Date dateToGo;
+    private LocalDate dateToGo;
     private Integer routeNumber;
-    private RequestStatusType status;
-
+    private OrderStatusType status;
 }

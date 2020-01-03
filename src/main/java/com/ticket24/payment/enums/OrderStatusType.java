@@ -1,6 +1,6 @@
 package com.ticket24.payment.enums;
 
-public enum RequestStatusType {
+public enum OrderStatusType {
     IN_PROGRESS,
     ERROR,
     COMPLETE

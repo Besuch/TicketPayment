@@ -1,22 +1,22 @@
 package com.ticket24.payment.dto;
 
-import com.ticket24.payment.enums.RequestStatusType;
+import com.ticket24.payment.enums.OrderStatusType;
 import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder
-public class PaymentDto {
+public class OrderDto {
 
     private Long id;
     @NotNull
-    private Date dateToGo;
+    private LocalDate dateToGo;
     @NotNull
     private Integer routeNumber;
     @NotNull
-    private RequestStatusType status;
+    private OrderStatusType status;
 
 }
