@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface PaymentService {
     List<OrderDto> getAll();
+
     OrderDto save(OrderDto orderDto);
+
     OrderDto getById(long id);
+
     OrderStatusType getOrderStatusById(long id);
 }

@@ -41,9 +41,9 @@ public class PaymentServiceImpl implements PaymentService {
         throw new RuntimeException("Order with id:" + id + " Not found");
     }
 
-    public OrderStatusType getOrderStatusById(long id){
+    public OrderStatusType getOrderStatusById(long id) {
         Optional<OrderEntity> order = paymentRepository.findById(id);
-        if (order.isPresent()){
+        if (order.isPresent()) {
             return order.get().getStatus();
         }
         throw new RuntimeException("Order with id:" + id + " Not found");

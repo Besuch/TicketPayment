@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrdersScheduler {
 
-    private RestTemplate restTemplate = new RestTemplate();
     private final PaymentRepository paymentRepository;
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Scheduled(cron = "${orders.scheduler.cron}")
     public void run() {
